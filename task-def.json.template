@@ -1,0 +1,21 @@
+{
+    "family": "fastapi-aws-fargate-task",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "256",
+    "memory": "512",
+    "containerDefinitions": [
+        {
+            "name": "fastapi-aws-fargate-container",
+            "image": "${IMAGE_URL}",
+            "portMappings": [
+                {
+                    "containerPort": 3000,
+                    "protocol": "tcp"
+                }
+            ]
+        }
+    ]
+}
