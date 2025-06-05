@@ -52,5 +52,22 @@ Replace <tagname> with a tag like v1
 6. Create the ECS cluster
 
 ```bash
-aws ecs create-cluster --profile aws_profile_name --cluster-name fastapi-fargate-cluster
+aws ecs create-cluster --profile <aws_profile_name> --cluster-name fastapi-fargate-cluster
+```
+
+
+7. To register the task for Fargate launch type
+
+First make sure you set the correct ECR URI by replacing following in `register-task.sh`:
+
+```bash
+export IMAGE_URL=<aws_account_id>.dkr.ecr.<region>.amazonaws.com/fastapi-fargate:<tagname>
+```
+
+Now,
+
+```bash
+chmod +x register-task.sh
+
+./register-task.sh
 ```
