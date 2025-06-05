@@ -1,4 +1,4 @@
-## Steps
+## Common Steps
 
 1. Add following permission to IAM user
 
@@ -49,14 +49,16 @@ docker push <aws_account_id>.dkr.ecr.<region>.amazonaws.com/fastapi-fargate:<tag
 Replace <tagname> with a tag like v1
 
 
-6. Create the ECS cluster
+## AWS Fargate
+
+1. Create the ECS cluster
 
 ```bash
 aws ecs create-cluster --profile <aws_profile_name> --cluster-name fastapi-fargate-cluster
 ```
 
 
-7. To register the task for Fargate launch type
+2. To register the task for Fargate launch type
 
 First make sure you set the correct ECR URI by replacing following in `register-task.sh`:
 
@@ -71,3 +73,18 @@ chmod +x register-task.sh
 
 ./register-task.sh
 ```
+
+
+## AWS App Runner
+
+1. Go to AWS Console → App Runner
+2. Click "Create service"
+3. Choose source: Container registry
+4. Source: Select Amazon ECR
+5. Image: Choose your pushed image (e.g., fastapi-fargate:latest)
+6. Port: Set to 8000 (FastAPI default)
+7. Deployment trigger: Manual (unless you want auto-deploy on push)
+8. Service name: e.g., fastapi-translate-app
+9. CPU & Memory: Start with 0.25 vCPU and 512 MB (you can auto-scale later)
+10. IAM Role: Choose existing or let AWS create one
+11. Click "Create & Deploy"
